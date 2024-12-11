@@ -1,22 +1,26 @@
 import unittest
-from unittest.mock import patch
+from calculator import PersonalCalculator
 
-class TestCalculators(unittest.TestCase):
+class TestPersonalCalculator(unittest.TestCase):
+    def setUp(self):
+        self.calculator = PersonalCalculator()
 
-    @patch('tkinter.Tk')  # Заменяем Tk на заглушку
-    def test_personal_calculator(self, mock_tk):
-        # Ваш тест для personal_calculator
-        pass
+    def test_add_income(self):
+        new_balance = self.calculator.add_transaction(100.00, "Зарплата", True)
+        self.assertEqual(new_balance, 100.00)
+        self.assertEqual(self.calculator.get_balance(), 100.00)
 
-    @patch('tkinter.Tk')  # Заменяем Tk на заглушку
-    def test_mortgage_calculator(self, mock_tk):
-        # Ваш тест для mortgage_calculator
-        pass
+    def test_add_expense(self):
+        self.calculator.add_transaction(100.00, "Зарплата", True)
+        new_balance = self.calculator.add_transaction(50.00, "Покупка", False)
+        self.assertEqual(new_balance, 50.00)
+        self.assertEqual(self.calculator.get_balance(), 50.00)
 
-    @patch('tkinter.Tk')  # Заменяем Tk на заглушку
-    def test_basic_calculator(self, mock_tk):
-        # Ваш тест для basic_calculator
-        pass
+    def test_negative_balance(self):
+        self.calculator.add_transaction(50.00, "Зарплата", True)
+        new_balance = self.calculator.add_transaction(100.00, "Расход", False)
+        self.assertEqual(new_balance, -50.00)
+        self.assertEqual(self.calculator.get_balance(), -50.00)
 
 if __name__ == '__main__':
     unittest.main()
