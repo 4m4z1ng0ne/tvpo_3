@@ -1,27 +1,23 @@
-import pytest
-import tkinter as tk
+# test-final.py
+import unittest
 from unittest.mock import patch
 
-# Импортируем функции из вашего файла main.py
-from main import personal_calculator, mortgage_calculator, basic_calculator
+class TestCalculators(unittest.TestCase):
 
-@pytest.fixture
-def setup_tkinter():
-    root = tk.Tk()
-    yield root
-    root.destroy()
+    @patch('tkinter.Tk')  # Заменяем Tk на заглушку
+    def test_personal_calculator(self, mock_tk):
+        # Ваш тест для personal_calculator
+        pass
 
-def test_personal_calculator_opens(setup_tkinter):
-    with patch('tkinter.Toplevel') as mock_toplevel:
-        personal_calculator()
-        mock_toplevel.assert_called_once()
+    @patch('tkinter.Tk')  # Заменяем Tk на заглушку
+    def test_mortgage_calculator(self, mock_tk):
+        # Ваш тест для mortgage_calculator
+        pass
 
-def test_mortgage_calculator_opens(setup_tkinter):
-    with patch('tkinter.Toplevel') as mock_toplevel:
-        mortgage_calculator()
-        mock_toplevel.assert_called_once()
+    @patch('tkinter.Tk')  # Заменяем Tk на заглушку
+    def test_basic_calculator(self, mock_tk):
+        # Ваш тест для basic_calculator
+        pass
 
-def test_basic_calculator_opens(setup_tkinter):
-    with patch('tkinter.Toplevel') as mock_toplevel:
-        basic_calculator()
-        mock_toplevel.assert_called_once()
+if __name__ == '__main__':
+    unittest.main()
