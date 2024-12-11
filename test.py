@@ -21,6 +21,6 @@ class TestPersonalCalculator(unittest.TestCase):
         new_balance = self.calculator.add_transaction(100.00, "Расход", False)
         self.assertEqual(new_balance, -50.00)
         self.assertEqual(self.calculator.get_balance(), -50.00)
-
+# wdwdwd
 if __name__ == '__main__':
     unittest.main()
