@@ -30,7 +30,7 @@ jobs:
 
     - name: Deploy
       if: github.event_name == 'push' && github.ref == 'refs/heads/deploy'
-      uses: appleboy/ssh-action@v1
+      uses: appleboy/ssh-action@v1.2.0
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
