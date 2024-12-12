@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -28,8 +27,16 @@ jobs:
       run: |
         python -m unittest discover
 
-    - name: Deploy
-      if: github.event_name == 'push' && github.ref == 'refs/heads/deploy'
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/deploy' && github.event_name == 'push'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to production
       uses: appleboy/ssh-action@v1.2.0
       with:
         host: ${{ secrets.HOST }}
@@ -38,18 +45,5 @@ jobs:
         script: |
           cd /path/to/deploy
           git pull
+          pip install -r requirements.txt
           python deploy.py
-
-    - name: Publish
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: actions/upload-artifact@v4
-      with:
-        name: my-artifact
-        path: /path/to/artifact
-
-    - name: Publish to GitHub Pages
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.TOKEN }}
-        publish_dir: /path/to/publish
