@@ -40,9 +40,10 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+        password: ${{ secrets.PASSWORD }} # qwe
         script: |
           cd /path/to/deploy
           git pull
-          pip install -r requirements.txt
+          pip install -r requirements.txt 
           python deploy.py
+        debug: true
