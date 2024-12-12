@@ -30,7 +30,6 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/deploy' && github.event_name == 'push'
     
     steps:
     - name: Checkout code
