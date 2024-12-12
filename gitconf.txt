@@ -39,17 +39,3 @@ jobs:
           cd /path/to/deploy
           git pull
           python deploy.py
-
-    - name: Publish
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: actions/upload-artifact@v2
-      with:
-        name: my-artifact
-        path: /path/to/artifact
-
-    - name: Publish to GitHub Pages
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: /path/to/publish
